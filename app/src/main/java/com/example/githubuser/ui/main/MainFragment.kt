@@ -24,7 +24,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchUsers().observe(this, Observer {
+        viewModel.fetchUsers().observe(viewLifecycleOwner, Observer {
             Log.e("TEST", "FETCH")
         })
     }
