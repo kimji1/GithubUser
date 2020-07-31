@@ -1,22 +1,14 @@
 package com.example.githubuser.ui.main
 
-import androidx.lifecycle.MutableLiveData
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.githubuser.vo.User
-import com.example.githubuser.vo.UserRepository
-import kotlinx.coroutines.launch
-import javax.inject.Inject
+import androidx.lifecycle.liveData
+import com.example.githubuser.repository.UserRepository
+import kotlinx.coroutines.Dispatchers
 
-class MainViewModel : ViewModel() {
-    @Inject
-    lateinit var repository: UserRepository
-
-    val usersLiveData = MutableLiveData<List<User>>()
-
-    public fun fetchUsers() {
-        viewModelScope.launch {
-            usersLiveData.postValue(repository.loadUsers())
-        }
+class MainViewModel @ViewModelInject constructor(var repository: UserRepository) : ViewModel() {
+    fun fetchUsers() = liveData(Dispatchers.IO) {
+        val users = repository.loadUsers()
+        emit(users)
     }
 }
