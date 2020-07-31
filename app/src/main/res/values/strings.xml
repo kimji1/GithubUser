@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Github User</string>
+
+    <string name="public_gist">public gists : %d</string>
 </resources>

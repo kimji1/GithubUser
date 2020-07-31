@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -14,6 +15,7 @@ class NetworkModule {
     fun provideGithubUserService(): GithubUserService {
         return Retrofit.Builder()
             .baseUrl("https://api.github.com/")
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(GithubUserService::class.java)
     }
